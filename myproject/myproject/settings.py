@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'minio_storage',
+    # 'minio_storage',
+    'storages',
     'core',
 ]
 
@@ -81,19 +82,29 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
 STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
 
 # MinIO / S3 settings
-MINIO_STORAGE_ENDPOINT         = "localhost:9000"
-MINIO_STORAGE_ACCESS_KEY       = "minioadmin"
-MINIO_STORAGE_SECRET_KEY       = "minioadmin"
-MINIO_STORAGE_USE_HTTPS        = False  
-MINIO_STORAGE_MEDIA_BUCKET_NAME       = "my-media-bucket"
-MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-MINIO_STORAGE_STATIC_BUCKET_NAME      = "my-static-bucket"
-MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+# MINIO_STORAGE_ENDPOINT         = "minio:9000"
+# MINIO_STORAGE_ACCESS_KEY       = "minioadmin"
+# MINIO_STORAGE_SECRET_KEY       = "minioadmin"
+# MINIO_STORAGE_USE_HTTPS        = False  
+# MINIO_STORAGE_MEDIA_BUCKET_NAME       = "my-bucket-name"
+# MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+# MINIO_STORAGE_STATIC_BUCKET_NAME      = "my-static-bucket"
+# MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+
+
+# MinIO Settings (S3-compatible)
+AWS_ACCESS_KEY_ID = 'minioadmin'
+AWS_SECRET_ACCESS_KEY = 'minioadmin'
+AWS_STORAGE_BUCKET_NAME = 'my-bucket-name'
+AWS_S3_ENDPOINT_URL = 'http://127.0.0.1:9000'  # Your MinIO endpoint
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = False  # Skip SSL certificate verification if self-signed
 
 
 # Password validation
